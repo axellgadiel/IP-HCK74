@@ -8,6 +8,7 @@ const morgan = require("morgan");
 const authentication = require("./middleware/authentication");
 const errorHandler = require("./middleware/error");
 const UserController = require("./controllers/user");
+const ApiController = require("./controllers/api");
 
 const app = express();
 const port = 3001;
@@ -29,12 +30,10 @@ app.post("/login", UserController.login);
 
 console.log("adadada");
 
-app.post("/register", UserController.register);
+// app.use(authentication);
 
-app.use(authentication);
-
-app.get("/spotify-login", UserController.spotifyLogin);
-app.post("/spotify-login", UserController.spotifyLoginPost);
+app.post("/api/generate", ApiController.fluxAi);
+app.post("/api-g/generate", ApiController.geminiAi);
 
 app.use(errorHandler);
 

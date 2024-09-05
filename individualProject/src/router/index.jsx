@@ -1,23 +1,39 @@
-import { createBrowserRouter, redirect } from "react-router-dom";
-import SpotifyLogin from "../pages/SpotifyLogin";
+import { createBrowserRouter, Outlet, redirect } from "react-router-dom";
+import Home from "../pages/home";
+import Login from "../pages/Login";
+import UProfile from "../pages/UProfile";
 // import pages here
 
 export const router = createBrowserRouter([
+  // {
+  //   element: (
+  //     <div>
+  //       <h1>ininavbar</h1>
+  //       <Outlet />
+  //     </div>
+  //   ),
+  //   children: [
+  //     {
+  //       path: "//",
+  //       element: <test />,
+  //     },
+  //   ]
+  // },
   {
     path: "/login",
-    element: <test />,
+    element: <Login />,
   },
   {
     path: "/register",
     element: <test />,
   },
   {
-    path: "/spotify-login",
-    element: <SpotifyLogin />,
+    path: "/home",
+    element: <Home />,
   },
   {
-    path: "/home",
-    element: <test />,
+    path: "/profile",
+    element: <UProfile />,
   },
 
   // loader: async () => {
