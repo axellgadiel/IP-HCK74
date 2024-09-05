@@ -24,7 +24,7 @@ export default function Navbar() {
             <a href="#" className="text-gray-700 hover:underline">
               B
             </a>
-            <Link to={"/profile"}>
+            <Link to={"/user-profile"}>
               <a href="#" className="text-gray-700 hover:underline">
                 Profile
               </a>

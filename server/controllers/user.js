@@ -21,11 +21,12 @@ class UserController {
     }
   }
 
-  static async register(req, res, next) {
+  static async userProfile(req, res, next) {
     try {
-      const { username, email, password } = req.body;
-      const user = await User.create({ username, email, password });
-      res.status(201).json({ id: user.id, email: user.email });
+      const user = await User.findByPk(req.user.id, {
+        attributes: ["username", "email", "fullName", "phoneNumber", "address"],
+      });
+      res.json(user);
     } catch (err) {
       next(err);
     }

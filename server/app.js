@@ -28,12 +28,12 @@ app.use(morgan("dev"));
 
 app.post("/login", UserController.login);
 
-console.log("adadada");
-
 // app.use(authentication);
 
 app.post("/api/generate", ApiController.fluxAi);
 app.post("/api-g/generate", ApiController.geminiAi);
+
+app.get("/user-profile", UserController.userProfile);
 
 app.use(errorHandler);
 

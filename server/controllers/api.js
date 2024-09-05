@@ -28,10 +28,11 @@ class ApiController {
       res.status(500).send(error);
     }
   }
+
   static async geminiAi(req, res, next) {
     try {
       const prompt =
-        "give a simple prompt, so that i can generate an image based on the prompt";
+        "give a simple prompt (max 10 words), so that i can generate an image based on the prompt";
 
       const result = await model.generateContent(prompt);
       res.send(result.response.text());
