@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { signToken } = require("../helpers/jwt");
 const { comparePassword } = require("../helpers/bcrypt");
+const { Op } = require("sequelize");
 
 class UserController {
   static async login(req, res, next) {
@@ -24,9 +25,32 @@ class UserController {
   static async userProfile(req, res, next) {
     try {
       const user = await User.findByPk(req.user.id, {
-        attributes: ["username", "email", "fullName", "phoneNumber", "address"],
+        attributes: [
+          "username",
+          "email",
+          "fullName",
+          "phoneNumber",
+          "address",
+          "profileP",
+        ],
       });
       res.json(user);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async editProfile(req, res, next) {
+    try {
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async deleteProfile(req, res, next) {
+    try {
+      await User.id.destroy();
+      res.json();
     } catch (err) {
       next(err);
     }

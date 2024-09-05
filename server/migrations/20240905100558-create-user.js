@@ -30,6 +30,10 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "Input Address",
       },
+      profileP: {
+        type: Sequelize.STRING,
+        defaultValue: "Input Profile Picture",
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

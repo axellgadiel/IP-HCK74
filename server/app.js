@@ -35,6 +35,10 @@ app.post("/api-g/generate", ApiController.geminiAi);
 
 app.get("/user-profile", UserController.userProfile);
 
+app.put("/user-profile", UserController.editProfile);
+
+app.delete("/user/:id", UserController.deleteProfile);
+
 app.use(errorHandler);
 
 app.listen(port, () => {
