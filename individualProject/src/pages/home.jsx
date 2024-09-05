@@ -1,28 +1,44 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import video from "../assets/bgimage.mp4";
+import axios from "axios";
 
 export default function Home() {
-  const GenerateImage = () => {
-    const [prompt, setPrompt] = useState("");
-    const [imageUrl, setImageUrl] = useState(null);
+  const handleFluxAi = async () => {
+    const [result, setResult] = useState(null);
+    try {
+      const response = await axios.post({
+        method: "post",
+        url: "http://localhost:3001/api/generate",
+        // headers: {
+        //     Authorization: "Bearer " + localStorage.access_token,
+        //   },
+        input: {
+          prompt: prompt,
+        },
+      });
 
-    const handleGenerate = async () => {
-      try {
-        const response = await fetch("/api/generate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ prompt }),
-        });
+      setResult(response.data);
+    } catch (error) {
+      setError(error.message || "An error occurred");
+    }
+  };
 
-        const data = await response.json();
-        setImageUrl(data.images[0].url); // Assuming one image is generated
-      } catch (error) {
-        console.error("Error generating image:", error);
-      }
-    };
+  const handleGeminiAi = async () => {
+    const [result, setResult] = useState(null);
+    try {
+      const response = await axios.post({
+        method: "post",
+        url: "http://localhost:3001/api-g/generate",
+        // headers: {
+        //     Authorization: "Bearer " + localStorage.access_token,
+        //   },
+      });
+
+      setResult(response.data);
+    } catch (error) {
+      setError(error.message || "An error occurred");
+    }
   };
 
   return (

@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet, redirect } from "react-router-dom";
 import Home from "../pages/home";
 import Login from "../pages/Login";
 import UProfile from "../pages/UProfile";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 // import pages here
 
 export const router = createBrowserRouter([
@@ -20,12 +21,17 @@ export const router = createBrowserRouter([
   //   ]
   // },
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <test />,
+    element: (
+      <GoogleOAuthProvider clientId="266093002681-thcvokofhocq0fhrjv6euged05eldsqp.apps.googleusercontent.com">
+        <Outlet />
+      </GoogleOAuthProvider>
+    ),
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+    ],
   },
   {
     path: "/home",

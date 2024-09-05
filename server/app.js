@@ -12,6 +12,7 @@ const ApiController = require("./controllers/api");
 
 const app = express();
 const port = 3001;
+console.log(process.env.NODE_ENV || "development");
 
 app.use(cors());
 
@@ -20,13 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(morgan("dev"));
 
-// app.get("/", (req, res) => {
-//   res.send("HELLOOO");
-// });
-
 //routing
 
-app.post("/login", UserController.login);
+app.post("/google-login", UserController.googleLogin);
 
 // app.use(authentication);
 
@@ -37,7 +34,7 @@ app.get("/user-profile", UserController.userProfile);
 
 app.put("/user-profile", UserController.editProfile);
 
-app.delete("/user/:id", UserController.deleteProfile);
+app.delete("/user-profile", UserController.deleteProfile);
 
 app.use(errorHandler);
 

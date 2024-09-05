@@ -18,6 +18,9 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      password: {
+        type: Sequelize.STRING,
+      },
       fullName: {
         type: Sequelize.STRING,
         defaultValue: "Input Full Name",

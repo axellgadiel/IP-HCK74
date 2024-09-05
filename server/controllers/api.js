@@ -13,8 +13,7 @@ class ApiController {
     try {
       const result = await fal.subscribe("fal-ai/flux/schnell", {
         input: {
-          prompt:
-            "Behind his strong and handsome appearance, the public liar always dances on the edge of truth, hiding behind a letter with the words 'Nice Ide in Letter Orange,' like an invisible ninja.",
+          prompt: "Sunset over a starry ocean.",
         },
         logs: true,
         onQueueUpdate: (update) => {

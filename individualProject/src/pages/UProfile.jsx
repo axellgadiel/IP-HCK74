@@ -1,5 +1,6 @@
 import video from "../assets/bgimage.mp4";
 import Navbar from "../components/Navbar";
+import axios from "axios";
 
 export default function UProfile() {
   return (
