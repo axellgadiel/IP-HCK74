@@ -9,6 +9,7 @@ const authentication = require("./middleware/authentication");
 const errorHandler = require("./middleware/error");
 const UserController = require("./controllers/user");
 const ApiController = require("./controllers/api");
+const { auth } = require("google-auth-library");
 
 const app = express();
 const port = 3001;
@@ -30,11 +31,11 @@ app.post("/google-login", UserController.googleLogin);
 app.post("/api/generate", ApiController.fluxAi);
 app.post("/api-g/generate", ApiController.geminiAi);
 
-app.get("/user-profile", UserController.userProfile);
+app.get("/user-profile/:id", UserController.userProfile);
 
-app.put("/user-profile", UserController.editProfile);
+app.put("/user-profile/:id", UserController.editProfile);
 
-app.delete("/user-profile", UserController.deleteProfile);
+app.delete("/user-profile/:id", UserController.deleteProfile);
 
 app.use(errorHandler);
 

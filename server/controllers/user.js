@@ -40,7 +40,7 @@ class UserController {
 
   static async userProfile(req, res, next) {
     try {
-      const { id } = req.query;
+      const { id } = req.params;
 
       if (!id) {
         return res.status(400).json({ error: "User ID is required" });
@@ -69,7 +69,7 @@ class UserController {
 
   static async editProfile(req, res, next) {
     try {
-      const { id } = req.query;
+      const { id } = req.params;
 
       if (!id) {
         return res.status(400).json({ error: "User ID is required" });
@@ -96,10 +96,8 @@ class UserController {
         }
       }
 
-      // Update the user
       await user.update(updates);
 
-      // Fetch the updated user data
       const updatedUser = await User.findByPk(id, {
         attributes: updatableFields,
       });
@@ -112,7 +110,7 @@ class UserController {
 
   static async deleteProfile(req, res, next) {
     try {
-      const { id } = req.query;
+      const { id } = req.params;
 
       if (!id) {
         return res.status(400).json({ error: "User ID is required" });
@@ -124,7 +122,6 @@ class UserController {
         return res.status(404).json({ error: "User not found" });
       }
 
-      // Delete the user
       await user.destroy();
 
       res.status(200).json({ message: "User profile deleted successfully" });

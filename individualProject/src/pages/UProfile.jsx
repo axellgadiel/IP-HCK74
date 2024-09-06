@@ -1,8 +1,84 @@
+import { useNavigate, useParams } from "react-router-dom";
 import video from "../assets/bgimage.mp4";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function UProfile() {
+  const nav = useNavigate();
+  const { id } = useParams();
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    fullName: "",
+    phoneNumber: "",
+    address: "",
+    profileP: "",
+  });
+
+  const handleChange = (e) =>
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "http://localhost:3001/user-profile/" + id,
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.access_token,
+        // },
+      });
+      console.log("response:", response.data);
+      setUserData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios({
+        method: "put",
+        url: `http://localhost:3001/user-profile/` + id,
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.access_token,
+        // },
+        data: {
+          username: userData.username,
+          fullName: userData.fullName,
+          phoneNumber: userData.phoneNumber,
+          address: userData.address,
+          profileP: userData.profileP,
+        },
+      });
+      nav("/user-profile/" + id);
+      setUpdateUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      nav("/login");
+      response = await axios({
+        method: "delete",
+        url: `http://localhost:3001/user-profile/${id}`,
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.access_token,
+        // },
+      });
+      fetchUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-gray-50">
       {/* Video Background */}
@@ -26,60 +102,93 @@ export default function UProfile() {
       </div>
 
       {/* Profile Content */}
-      <div className="relative z-10 bg-white shadow-lg rounded-lg max-w-4xl w-full p-8 mx-auto mt-10">
+      <form className="relative z-10 bg-white shadow-lg rounded-lg max-w-4xl w-full p-8 mx-auto mt-10">
         {/* Profile Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <div className="relative w-24 h-24">
               {/* Profile Picture */}
               <img
-                src="https://via.placeholder.com/150" // Placeholder for profile image
+                src={userData.profileP} // Placeholder for profile image
                 alt="Profile"
                 className="w-full h-full object-cover rounded-full border border-gray-200"
               />
             </div>
             <div className="ml-6">
-              <h1 className="text-3xl font-semibold text-gray-800">John Doe</h1>
-              <p className="text-gray-500">johndoe@example.com</p>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  value={userData.username}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md p-2 text-gray-800"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={userData.email}
+                  className="w-full border border-gray-300 rounded-md p-2 text-gray-800"
+                />
+              </div>
             </div>
           </div>
 
           {/* Profile Actions (Edit and Delete Profile Buttons) */}
           <div className="flex space-x-4">
-            <button className="text-black-600 border border-black rounded px-3 py-1">
+            <button
+              onClick={handleSubmit}
+              className="text-black-600 border border-black rounded px-3 py-1"
+            >
               Edit Profile
             </button>
-            <button className="text-red-600 border border-red-600 rounded px-3 py-1">
+            <button
+              onClick={() => deleteUser(id)}
+              className="text-red-600 border border-red-600 rounded px-3 py-1"
+            >
               Delete Profile
             </button>
           </div>
         </div>
 
-        {/* Profile Details */}
+        {/* Profile Details with Input Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Personal Info */}
           <div>
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Personal Information
             </h2>
-            <div className="bg-gray-100 p-4 rounded-md shadow-inner">
+            <div className="bg-white-100 p-4 rounded-md ">
               <div className="mb-3">
-                <p className="text-sm font-medium text-gray-500">Full Name</p>
-                <p className="text-lg font-medium text-gray-800">John Doe</p>
-              </div>
-              <div className="mb-3">
-                <p className="text-sm font-medium text-gray-500">Email</p>
-                <p className="text-lg font-medium text-gray-800">
-                  johndoe@example.com
-                </p>
+                <label className="text-sm font-medium text-gray-500">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={userData.fullName}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-lg font-medium text-gray-800"
+                />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">
+                <label className="text-sm font-medium text-gray-500">
                   Phone Number
-                </p>
-                <p className="text-lg font-medium text-gray-800">
-                  +1 234 567 890
-                </p>
+                </label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={userData.phoneNumber}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-lg font-medium text-gray-800"
+                />
               </div>
             </div>
           </div>
@@ -87,22 +196,39 @@ export default function UProfile() {
           {/* Address Information */}
           <div>
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Address
+              Miscellanous
             </h2>
-            <div className="bg-gray-100 p-4 rounded-md shadow-inner">
-              <p className="text-lg font-medium text-gray-800">
-                123 Main Street
-              </p>
-              <p className="text-lg font-medium text-gray-800">
-                City, State, 12345
-              </p>
-              <p className="text-lg font-medium text-gray-800">Country</p>
+            <div className="bg-white-100 p-4 rounded-md ">
+              <div className="mb-3">
+                <label className="text-sm font-medium text-gray-500">
+                  Address
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  value={userData.address}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-lg font-medium text-gray-800"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">
+                  Profile Picture
+                </label>
+                <input
+                  type="tel"
+                  name="profileP"
+                  value={userData.profileP}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-lg font-medium text-gray-800"
+                />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Profile Actions */}
-      </div>
+      </form>
     </div>
   );
 }

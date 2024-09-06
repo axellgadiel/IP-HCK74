@@ -32,7 +32,7 @@ export default function Login() {
   return (
     <>
       <div className="relative min-h-screen flex items-center justify-center">
-        {/* Video Background */}
+        {/* Video BG */}
         <video
           autoPlay
           loop
@@ -43,10 +43,9 @@ export default function Login() {
           <source src={video} type="video/mp4" />
         </video>
 
-        {/* Overlay to darken the video */}
         <div className="absolute inset-0 bg-black opacity-0"></div>
 
-        {/* Login Form */}
+        {/* Login */}
         <div className="relative z-10 w-full max-w-sm p-4 bg-black border-black rounded-lg shadow sm:p-6">
           <h5 className="mb-3 text-base font-semibold text-white md:text-xl">
             Connect to Google account
@@ -64,7 +63,7 @@ export default function Login() {
                   console.log("login failed");
                 }}
               />
-              <a className="flex items-center p-3 text-base font-bold text-black rounded-lg bg-white hover:bg-gray-300 group hover:shadow ">
+              {/* <a className="flex items-center p-3 text-base font-bold text-black rounded-lg bg-white hover:bg-gray-300 group hover:shadow ">
                 <img src={photo} alt="photo/svg" className="w-6 h-6" />
                 <span className="flex-1 ms-3 whitespace-nowrap text-">
                   Google
@@ -72,7 +71,7 @@ export default function Login() {
                 <span className="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-white bg-gray-600 rounded">
                   Sign In
                 </span>
-              </a>
+              </a> */}
             </li>
           </ul>
         </div>

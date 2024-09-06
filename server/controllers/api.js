@@ -11,9 +11,10 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 class ApiController {
   static async fluxAi(req, res, next) {
     try {
+      const { prompt } = req.body;
       const result = await fal.subscribe("fal-ai/flux/schnell", {
         input: {
-          prompt: "Sunset over a starry ocean.",
+          prompt: prompt,
         },
         logs: true,
         onQueueUpdate: (update) => {
@@ -22,7 +23,8 @@ class ApiController {
           }
         },
       });
-      res.send(result);
+
+      res.json({ image: result.images[0].url });
     } catch (error) {
       res.status(500).send(error);
     }
