@@ -24,9 +24,9 @@ export default function UProfile() {
       const response = await axios({
         method: "get",
         url: "http://localhost:3001/user-profile/" + id,
-        // headers: {
-        //   Authorization: "Bearer " + localStorage.access_token,
-        // },
+        headers: {
+          Authorization: "Bearer " + localStorage.access_token,
+        },
       });
       console.log("response:", response.data);
       setUserData(response.data);
@@ -41,9 +41,9 @@ export default function UProfile() {
       const response = await axios({
         method: "put",
         url: `http://localhost:3001/user-profile/` + id,
-        // headers: {
-        //   Authorization: "Bearer " + localStorage.access_token,
-        // },
+        headers: {
+          Authorization: "Bearer " + localStorage.access_token,
+        },
         data: {
           username: userData.username,
           fullName: userData.fullName,
@@ -65,9 +65,9 @@ export default function UProfile() {
       response = await axios({
         method: "delete",
         url: `http://localhost:3001/user-profile/${id}`,
-        // headers: {
-        //   Authorization: "Bearer " + localStorage.access_token,
-        // },
+        headers: {
+          Authorization: "Bearer " + localStorage.access_token,
+        },
       });
       fetchUser();
     } catch (error) {
@@ -81,7 +81,6 @@ export default function UProfile() {
 
   return (
     <div className="relative min-h-screen bg-gray-50">
-      {/* Video Background */}
       <video
         autoPlay
         loop
@@ -93,21 +92,16 @@ export default function UProfile() {
         Your browser does not support the video tag.
       </video>
 
-      {/* Overlay to darken the video */}
       <div className="absolute inset-0 bg-black opacity-0"></div>
 
-      {/* Navbar */}
       <div className="relative z-20">
         <Navbar />
       </div>
 
-      {/* Profile Content */}
       <form className="relative z-10 bg-white shadow-lg rounded-lg max-w-4xl w-full p-8 mx-auto mt-10">
-        {/* Profile Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <div className="relative w-24 h-24">
-              {/* Profile Picture */}
               <img
                 src={userData.profileP} // Placeholder for profile image
                 alt="Profile"
@@ -141,7 +135,6 @@ export default function UProfile() {
             </div>
           </div>
 
-          {/* Profile Actions (Edit and Delete Profile Buttons) */}
           <div className="flex space-x-4">
             <button
               onClick={handleSubmit}
@@ -158,9 +151,7 @@ export default function UProfile() {
           </div>
         </div>
 
-        {/* Profile Details with Input Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Personal Info */}
           <div>
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Personal Information
@@ -193,7 +184,6 @@ export default function UProfile() {
             </div>
           </div>
 
-          {/* Address Information */}
           <div>
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Miscellanous
@@ -229,7 +219,6 @@ export default function UProfile() {
         <div className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Images</h2>
           <div className="grid grid-cols-2 gap-4">
-            {/* map Images */}
             <div className="bg-gray-200 h-48 rounded-md"></div>
           </div>
         </div>

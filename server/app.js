@@ -27,10 +27,12 @@ app.use(morgan("dev"));
 
 app.post("/google-login", UserController.googleLogin);
 
-// app.use(authentication);
+app.use(authentication);
 
 app.post("/api/generate", ApiController.fluxAi);
 app.post("/api-g/generate", ApiController.geminiAi);
+
+app.use(authorization);
 
 app.get("/user-profile/:id", UserController.userProfile);
 
