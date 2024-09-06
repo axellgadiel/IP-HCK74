@@ -6,6 +6,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const authentication = require("./middleware/authentication");
+const authorization = require("./middleware/authorization");
 const errorHandler = require("./middleware/error");
 const UserController = require("./controllers/user");
 const ApiController = require("./controllers/api");

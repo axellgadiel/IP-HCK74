@@ -226,8 +226,13 @@ export default function UProfile() {
             </div>
           </div>
         </div>
-
-        {/* Profile Actions */}
+        <div className="bg-white shadow-md rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Images</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {/* map Images */}
+            <div className="bg-gray-200 h-48 rounded-md"></div>
+          </div>
+        </div>
       </form>
     </div>
   );

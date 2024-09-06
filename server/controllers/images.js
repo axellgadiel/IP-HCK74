@@ -2,7 +2,14 @@ const { Images } = require("../models/index.js");
 const { Op } = require("sequelize");
 
 class ImagesController {
-  static async deleteProfile(req, res, next) {
+  static async getImages(req, res, next) {
+    try {
+    } catch (error) {
+      next(err);
+    }
+  }
+
+  static async deleteImages(req, res, next) {
     try {
       await Images.id.destroy();
       res.json();
@@ -11,3 +18,5 @@ class ImagesController {
     }
   }
 }
+
+module.exports = ImagesController;

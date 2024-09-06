@@ -32,7 +32,7 @@ export default function Login() {
   return (
     <>
       <div className="relative min-h-screen flex items-center justify-center">
-        {/* Video BG */}
+        {/* Video Background */}
         <video
           autoPlay
           loop

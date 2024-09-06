@@ -18,7 +18,7 @@ export default function Navbar(id) {
                 Home
               </a>
             </Link>
-            <Link to={`/user-profile`}>
+            <Link to={`/user-profile/:id`}>
               <a href="#" className="text-gray-700 hover:underline">
                 Profile
               </a>
